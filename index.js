@@ -1,10 +1,10 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
-const generateHtml = require('./dist/index');
+const generateHtml = require('./src/generateHtml');
 
-const teamMember = [];
-function app() {
+const teamMembers = [];
+function init() {
     function getManager() {
         inquirer.prompt([
             {
@@ -29,12 +29,12 @@ function app() {
             }
         ]).then(data => {
             const manager = new Manager(data.nameManager, data.idManager, data.emailManager, data.officeNumber);
-            teamMember.push(manager);
-            addingTeamMember();
+            teamMembers.push(manager);
+            addingTeamMembers();
         })
     }
 
-    function addingTeamMember() {
+    function addingTeamMembers() {
         inquirer.prompt([
             {
                 type: "list",
@@ -43,7 +43,7 @@ function app() {
                 choices: ["Engineer", "Intern", new inquirer.Separator(), "Finished Building my Team"]
             }
         ]).then(data => {
-            const getRole = data.addingTeamMember;
+            const getRole = data.addingTeamMembers;
             if(getRole === "Engineer") {
                 getEngineer();
             } else if(getRole === "Intern") {
@@ -73,9 +73,49 @@ function app() {
             },
             {
                 type: "input",
-                name: "officeNumber",
-                message: "What is their office phone number?"
+                name: "getHub",
+                message: "What is their GitHub UserName?"
             }
-        ])
+        ]).then(data => {
+            const engineer = new Engineer(data.nameEngineer, data.idEngineer, data.emailEngineer, data.getHub);
+            teamMembers.push(engineer);
+            addingTeamMembers();
+        })
     }
+
+    function getIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "nameIntern",
+                message: "What is their full name?"
+            },
+            {
+                type: "input",
+                name: "idIntern",
+                message: "What is their employee ID?"
+            },
+            {
+                type: "input",
+                name: "emailIntern",
+                message: "What is their email?"
+            },
+            {
+                type: "input",
+                name: "school",
+                message: "What is the school they are attending?"
+            }
+        ]).then(data => {
+            const intern = new Intern(data.nameIntern, data.idIntern, data.emailIntern, data.school);
+            teamMembers.push(intern);
+            addingTeamMembers();
+        })
+    }
+    getManager();
 }
+
+function getTeam() {
+    fs.writeFileSync("./dist/index.html", generateHtml(teamMembers), "utf-8");
+}
+
+init();
