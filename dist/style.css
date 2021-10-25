@@ -1,6 +1,6 @@
+/* Was added to even space between first row cards and any additional there after */
 main {
     margin-top: 1.5rem;
-    /* background-image: linear-gradient(to right, #007bff, #0020FF); */
 }
 
 .card-container {
@@ -20,6 +20,7 @@ main {
     box-shadow: 10px 5px 5px black;
 }
 
+/* Removed the underline and blue color links automatically generate */
 .github-link {
     text-decoration: none;
     color: black;

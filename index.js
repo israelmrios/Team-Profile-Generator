@@ -10,8 +10,10 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
+// Used teamMembers empty array to push all the profiles chosen to one object
 const teamMembers = [];
 function init() {
+    // When the app starts the initial function that runs will be getManager since that is the way it was requested by the customer
     function getManager() {
         inquirer.prompt([
             {
@@ -41,6 +43,7 @@ function init() {
         })
     }
 
+    // The addingTeamMembers function was added here to prompt for additional employees
     function addingTeamMembers() {
         inquirer.prompt([
             {
@@ -51,9 +54,9 @@ function init() {
             }
         ]).then(data => {
             const getRole = data.addingMember;
-            if(getRole === "Engineer") {
+            if (getRole === "Engineer") {
                 getEngineer();
-            } else if(getRole === "Intern") {
+            } else if (getRole === "Intern") {
                 getIntern();
             } else {
                 getTeam();
@@ -121,8 +124,9 @@ function init() {
     getManager();
 }
 
+// This was added incase the "src" folder is ever deleted, the mkdir will add the folder back
 function getTeam() {
-    if(!fs.existsSync(OUTPUT_DIR)) {
+    if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR)
     }
     fs.writeFileSync(distributionPath, generateHtml(teamMembers), "utf-8");
