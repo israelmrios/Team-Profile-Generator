@@ -1,7 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
-const generateHtml = require('./src/generateHtml');
+
+const OUTPUT_DIR = path.resolve(__dirname, "dist");
+const distributionPath = path.join(OUTPUT_DIR, "index.html");
+
+const generateHtml = require('./lib/generateHtml');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 const teamMembers = [];
 function init() {
@@ -43,7 +50,7 @@ function init() {
                 choices: ["Engineer", "Intern", new inquirer.Separator(), "Finished Building my Team"]
             }
         ]).then(data => {
-            const getRole = data.addingTeamMembers;
+            const getRole = data.addingMember;
             if(getRole === "Engineer") {
                 getEngineer();
             } else if(getRole === "Intern") {
@@ -115,7 +122,11 @@ function init() {
 }
 
 function getTeam() {
-    fs.writeFileSync("./dist/index.html", generateHtml(teamMembers), "utf-8");
+    if(!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(distributionPath, generateHtml(teamMembers), "utf-8");
+    console.log("Your HTML Webpage with your team's basic info has been created!!!")
 }
 
 init();
