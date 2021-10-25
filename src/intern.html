@@ -1,38 +1,14 @@
-<div>
-    <div>
-        <h2>{{ name }}</h2>
-    </div>
-    <div></div>
-    <div>
-        <div>
-            <h3>Role</h3>
+<div class="col cards">
+    <div class="card shadow" style="width: 18rem;">
+        <img src="../assets/images/intern.jpg" class="card-img-top" alt="image of intern">
+        <div class="card-body text-white bg-dark">
+        <h5 class="card-title">{{ name }}</h5>
+        <p class="card-text"><i class="fas fa-graduation-cap"></i> {{ role }}</p>
         </div>
-        <div>
-            <P><i class="fas fa-headphones"></i>{{ role }}</P>
-        </div>
-    </div>
-    <div>
-        <div>
-            <h3>ID</h3>
-        </div>
-        <div>
-            <P>{{ id }}</P>
-        </div>
-    </div>
-    <div>
-        <div>
-            <h3>E-Mail</h3>
-        </div>
-        <div>
-            <p><a class="intern-email" href="mailto:{{ email }}">{{ email }}</a></p>
-        </div>
-    </div>
-    <div>
-        <div>
-            <h3>Office Number</h3>
-        </div>
-        <div>
-            <p>{{ school }}</p>
-        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>ID: </strong>{{ id }}</li>
+        <li class="list-group-item"><strong>Email: </strong><a href="mailto:{{ email }}">{{ email }}</a></li>
+        <li class="list-group-item"><strong>School: </strong>{{ school }}</li>
+        </ul>
     </div>
 </div>
